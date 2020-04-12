@@ -1,7 +1,5 @@
 
-
-
-class CLI
+class Amiiboproject::CLI
 
     def start
         puts "Hello World!"

@@ -2,4 +2,4 @@
 
 require_relative '../lib/amiiboproject'
 
-CLI.new.start
+Amiiboproject::CLI.new.start
