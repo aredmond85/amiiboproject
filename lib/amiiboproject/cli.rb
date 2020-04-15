@@ -63,5 +63,6 @@ class Amiiboproject::CLI
         end
     end      
 end
+end
  
 
