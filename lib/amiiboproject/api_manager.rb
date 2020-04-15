@@ -5,7 +5,7 @@ class Amiiboproject::APIManager
     def self.get_amiibo
         url = BASE_URL + "amiibo"
         res = HTTParty.get(url)
-        Amiiboproject::Amiibo.mass_create_from_api(res["amiibo"])
+        Amiiboproject::Amiibo.create(res["amiibo"])
     end
 
 end

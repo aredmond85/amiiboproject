@@ -1,8 +1,10 @@
-require_relative "./amiiboproject/version"
+#require 'pry'
 require 'httparty'
-require_relative "./cli"
-require_relative "./api_manager"
-require_relative "./amiibo"
+
+require_relative "amiiboproject/version"
+require_relative "amiiboproject/cli"
+require_relative "amiiboproject/api_manager"
+require_relative "amiiboproject/amiibo"
 
 module Amiiboproject
   class Error < StandardError; end
