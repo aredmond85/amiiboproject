@@ -1,19 +1,16 @@
 class Amiiboproject::CLI
 
+    #starts the CLI, and runs the methods
     def start
         intro
         instruction_loop
-
     end
 
+    #outputs intro to the CLI project
     def intro
         puts "\n"
         puts "Welcome to the Amiibo Selection!"
         puts "\n"
-    end
-
-    def gets_input(input)
-        input = gets.strip
     end
 
     #outputs the text to put in a valid option
@@ -22,13 +19,27 @@ class Amiiboproject::CLI
         puts "\n"
     end  
     
+    #finds all amiibos by name
     def list_by_all_name
-        Amiiboproject::Amiibo.all.each_with_index {|x, i| puts "#{i+1}. #{x.name}"}
+        Amiiboproject::Amiibo.all.each_with_index {|x, i| puts "#{i+1}. #{x.name.capitalize}"}
     end
 
-       #finds characters associated by the character name
+    #finds characters associated by the character name
     def list_by_character(input)
-        Amiiboproject::Amiibo.all.select {|x| puts "#{x.name.capitalize}" if x.character.downcase == input}
+        Amiiboproject::Amiibo.all.select.with_index {|x, i| puts "#{i+1}. #{x.name.capitalize}" if x.character.downcase == input}
+    end
+
+    #lists all uniq gameSeries for the amiibos
+    def list_all_gameseries
+        array = []
+        Amiiboproject::Amiibo.all.each do |x|
+            array << x.character unless array.include?(x.character)
+        end
+        puts array
+    end
+
+    #counts the number amiibos from a selection and outputs that sum of those
+    def count_entries
     end
 
     #outputs the menu of options for the user
@@ -39,6 +50,7 @@ class Amiiboproject::CLI
         sleep(2)
     end
 
+    #instruction loop for everything going on
     def instruction_loop
         puts "Compiling all Amiibo Results...one moment..."
         sleep(1)
@@ -50,13 +62,24 @@ class Amiiboproject::CLI
             input = gets.strip.downcase
             case input
                 when "zelda"
+                    puts "----------------------------"
                     list_by_character(input)
+                    puts "----------------------------"
                     puts "Please enter another character or type 'menu' for menu: \n"
                 when "mario"
+                    puts "----------------------------"
                     list_by_character(input)
+                    puts "----------------------------"
+                    puts "Please enter another character or type 'menu' for menu: \n"
+                when "games"
+                    puts "----------------------------"
+                    list_all_gameseries
+                    puts "----------------------------"
                     puts "Please enter another character or type 'menu' for menu: \n"
                 when "all"
+                    puts "----------------------------"
                     list_by_all_name
+                    puts "----------------------------"
                     puts "Please enter another character or type 'menu' for menu: \n"
                 when "menu"
                     menu 
