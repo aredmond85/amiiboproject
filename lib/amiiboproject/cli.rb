@@ -46,10 +46,6 @@ class Amiiboproject::CLI
         puts array.uniq
     end
 
-    #counts the number amiibos from a selection and outputs that sum of those
-    def count_entries
-    end
-
     #outputs the menu of options for the user
     def menu
         puts "Type in a Nintendo character to see a list of Amiibos associated with that character or all to see ALL Amiibos."
@@ -69,6 +65,11 @@ class Amiiboproject::CLI
         while input != "exit" 
             input = gets.strip.downcase
             case input
+                # when input.any?
+                #     puts "----------------------------"
+                #     list_by_character(input)
+                #     puts "----------------------------"
+                #     puts "Please enter another character or type 'menu' for menu: \n"
                 when "zelda"
                     puts "----------------------------"
                     list_by_character(input)
