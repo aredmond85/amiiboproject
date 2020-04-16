@@ -42,10 +42,8 @@ class Amiiboproject::CLI
     #lists all uniq gameSeries for the amiibos
     def list_all_gameseries
         array = []
-        Amiiboproject::Amiibo.all.each do |x|
-            array << x.gameSeries unless array.include?(x.gameSeries)
-        end
-        puts array
+        Amiiboproject::Amiibo.all.each {|x| array << x.gameSeries}
+        puts array.uniq
     end
 
     #counts the number amiibos from a selection and outputs that sum of those
