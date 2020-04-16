@@ -21,19 +21,29 @@ class Amiiboproject::CLI
     
     #finds all amiibos by name
     def list_by_all_name
-        Amiiboproject::Amiibo.all.each_with_index {|x, i| puts "#{i+1}. #{x.name.capitalize}"}
+        Amiiboproject::Amiibo.all.each_with_index do |x, i| 
+            puts "#{i+1}. Name: #{x.name.split.map(&:capitalize).join(' ')}"
+            puts "      " + "Character Series: #{x.character.split.map(&:capitalize).join(' ')}"
+            puts "      " + "Game Series: #{x.gameSeries.split.map(&:capitalize).join(' ')}"
+        end 
     end
 
     #finds characters associated by the character name
     def list_by_character(input)
-        Amiiboproject::Amiibo.all.select.with_index {|x, i| puts "#{i+1}. #{x.name.capitalize}" if x.character.downcase == input}
+        Amiiboproject::Amiibo.all.select.with_index do |x, i| 
+            if x.character.downcase == input
+                puts "#{i+1}. Name: #{x.name.split.map(&:capitalize).join(' ')}"
+                puts "     " + "Character Series: #{x.character.split.map(&:capitalize).join(' ')}"
+                puts "     " + "Game Series: #{x.gameSeries.split.map(&:capitalize).join(' ')}"   
+            end 
+        end
     end
 
     #lists all uniq gameSeries for the amiibos
     def list_all_gameseries
         array = []
         Amiiboproject::Amiibo.all.each do |x|
-            array << x.character unless array.include?(x.character)
+            array << x.gameSeries unless array.include?(x.gameSeries)
         end
         puts array
     end
@@ -52,7 +62,7 @@ class Amiiboproject::CLI
 
     #instruction loop for everything going on
     def instruction_loop
-        puts "Compiling all Amiibo Results...one moment..."
+        puts "Gathering all Amiibo Results...one moment..."
         sleep(1)
         puts "\n"
         Amiiboproject::Amiibo.create(Amiiboproject::APIManager.get_amiibo)
