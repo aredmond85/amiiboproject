@@ -30,12 +30,13 @@ class Amiiboproject::CLI
 
     #finds characters associated by the character name
     def list_by_character(input)
-        Amiiboproject::Amiibo.all.select.with_index do |x, i| 
-            if x.character.downcase == input
-                puts "#{i+1}. Name: #{x.name.split.map(&:capitalize).join(' ')}"
-                puts "     " + "Character Series: #{x.character.split.map(&:capitalize).join(' ')}"
-                puts "     " + "Game Series: #{x.gameSeries.split.map(&:capitalize).join(' ')}"   
-            end 
+        as = Amiiboproject::Amiibo.all.select do |x| 
+            x.character.downcase == input
+        end
+        as.each.with_index(1) do |x, i|
+            puts "#{i}. Name: #{x.name.split.map(&:capitalize).join(' ')}"
+            puts "     " + "Character Series: #{x.character.split.map(&:capitalize).join(' ')}"
+            puts "     " + "Game Series: #{x.gameSeries.split.map(&:capitalize).join(' ')}"   
         end
     end
 
@@ -65,21 +66,6 @@ class Amiiboproject::CLI
         while input != "exit" 
             input = gets.strip.downcase
             case input
-                # when input.any?
-                #     puts "----------------------------"
-                #     list_by_character(input)
-                #     puts "----------------------------"
-                #     puts "Please enter another character or type 'menu' for menu: \n"
-                when "zelda"
-                    puts "----------------------------"
-                    list_by_character(input)
-                    puts "----------------------------"
-                    puts "Please enter another character or type 'menu' for menu: \n"
-                when "mario"
-                    puts "----------------------------"
-                    list_by_character(input)
-                    puts "----------------------------"
-                    puts "Please enter another character or type 'menu' for menu: \n"
                 when "games"
                     puts "----------------------------"
                     list_all_gameseries
@@ -95,6 +81,10 @@ class Amiiboproject::CLI
                 when "exit"
                     exit
                 else 
+                    puts "----------------------------"
+                    list_by_character(input)
+                    puts "----------------------------"
+                    puts "Please enter another character or type 'menu' for menu: \n"
                     puts invalid_selection
                 end
             end

@@ -1,4 +1,4 @@
-require 'pry'
+#require 'pry'
 require 'httparty'
 
 require_relative "../lib/amiiboproject/version"
