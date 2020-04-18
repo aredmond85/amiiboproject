@@ -11,17 +11,17 @@ class Amiiboproject::Amiibo
     #creates an amiibo object
     def self.create(array)
         array.each do |hash|
-            amiibo = new(hash["character"],hash["gameSeries"],hash["name"])
+            amiibo = new(hash["character"],hash["gameSeries"],hash["name"],hash["amiiboSeries"])
             amiibo.save 
         end
     end
 
     #instance variables for getters and setters
-    attr_accessor :character,:gameSeries, :name
+    attr_accessor :character, :gameSeries, :name, :amiiboSeries
 
     #instantiates an amiibo object
-    def initialize(character, gameSeries, name)
-        @character, @gameSeries, @name = character, gameSeries, name
+    def initialize(character, gameSeries, name, amiiboSeries)
+        @character, @gameSeries, @name, @amiiboSeries = character, gameSeries, name, amiiboSeries
     end
 
     #saves all objects into the @@all array for amiibo
