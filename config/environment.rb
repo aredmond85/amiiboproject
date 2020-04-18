@@ -1,5 +1,6 @@
-#require 'pry'
+require 'pry'
 require 'httparty'
+require 'colorize'
 
 require_relative "../lib/amiiboproject/version"
 require_relative "../lib/amiiboproject/cli"
