@@ -4,6 +4,8 @@ class Amiiboproject::CLI
     def start
         intro
         gather_amiibos
+        menu
+        browse_amiibos
     end
 
     #outputs intro to the CLI project
@@ -17,7 +19,6 @@ class Amiiboproject::CLI
     #creates amiibo objects, then runs browse_amiibos loop
     def gather_amiibos
         Amiiboproject::Amiibo.create(Amiiboproject::APIManager.get_amiibo)
-        browse_amiibos
     end
 
     #outputs the menu of options for the user
@@ -35,6 +36,7 @@ class Amiiboproject::CLI
     #adds a menu options to continue and output the menu or exit
     def continue(input)
         puts "Would you like to continue?"
+        puts "#{"Yes".colorize(:green)} or #{"No".colorize(:yellow)} or #{"Exit".colorize(:red)}?"
         input = nil
         input = gets.strip.downcase
         if input == "yes"
@@ -46,16 +48,14 @@ class Amiiboproject::CLI
     
     #instruction loop for everything going on
     def browse_amiibos
-        menu
-        input = nil 
+        input = nil
         while input != "exit" 
-                input = gets.strip.downcase
+            input = gets.strip.downcase
                 if input == "1"
                     list_all_gameseries
                     continue(input)
                 elsif input == "2"
-                    list_all_amiiboseries
-                    puts "\n\n"
+                    list_all_amiiboseries3
                     continue(input)
                 elsif input == "3"
                     list_all_character
@@ -153,19 +153,20 @@ class Amiiboproject::CLI
         end
     end
     
-    #validates if any Character Series keys exist within hash array
+    #validates if any Character Series keys exist within array
     def character_valid?(character)
-        Amiiboproject::Amiibo.all.any? { |amiibo| amiibo.character.downcase == character}
+        Amiiboproject::Amiibo.all.any? {|amiibo| amiibo.character.downcase == character}
     end
 
-    #validates if any Amiibo Series keys exist within hash array
+    #validates if any Amiibo Series keys exist within array
     def amiiboSeries_valid?(amiiboSeries)
-        Amiiboproject::Amiibo.all.any? { |amiibo| amiibo.amiiboSeries.downcase == amiiboSeries}
+        Amiiboproject::Amiibo.all.any? {|amiibo| amiibo.amiiboSeries.downcase == amiiboSeries}
     end
 
-    #validates if any Game Series keys exist within hash array
+    #validates if any Game Series keys exist within array
     def gameSeries_valid?(gameSeries)
-        Amiiboproject::Amiibo.all.any? { |amiibo| amiibo.gameSeries.downcase == gameSeries}
-    end
+        Amiiboproject::Amiibo.all.any? {|amiibo| amiibo.gameSeries.downcase == gameSeries}
+    end 
+end
 
-    #binding.pry
+#binding.pry
