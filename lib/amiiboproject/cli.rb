@@ -10,7 +10,7 @@ class Amiiboproject::CLI
     def intro
         puts "\n\n#{"Welcome to the Amiibo Selection!".colorize(:cyan)}\n\n"
         puts "Gathering all Amiibo Results...one moment..."
-        puts "-------------------------------------------\n\n"
+        puts "--------------------------------------------------------------------------------\n\n"
         sleep(1)
     end
 
@@ -28,17 +28,18 @@ class Amiiboproject::CLI
         puts "- Type #{'2'.colorize(:yellow)} for a list of all the Amiibo Series included in the Amiibo collection"
         puts "- Type #{'3'.colorize(:yellow)} for a list of all the Characters included in Amiibo collection\n\n"
         puts "- Type #{'exit'.colorize(:yellow)} to exit the CLI\n\n"
-        puts "--------------------------------------------------------------------------------"
+        puts "--------------------------------------------------------------------------------\n\n"
         sleep(2)
     end
 
+    #adds a menu options to continue and output the menu or exit
     def continue(input)
         puts "Would you like to continue?"
         input = nil
         input = gets.strip.downcase
         if input == "yes"
             menu
-        else
+        elsif input == "no" || "exit"
             exit
         end
     end
@@ -82,27 +83,27 @@ class Amiiboproject::CLI
     def list_all_gameseries
         gameArray = []
         Amiiboproject::Amiibo.all.each {|x| gameArray << x.gameSeries}
-        puts "-------------------------------------------\n\n"
+        puts "--------------------------------------------------------------------------------\n\n"
         puts gameArray.uniq
-        puts "-------------------------------------------\n\n"
+        puts "--------------------------------------------------------------------------------\n\n"
     end
 
     #lists all amiibos by their amiiboSeries key with no duplicates
     def list_all_amiiboseries
         amiiboArray = []
         Amiiboproject::Amiibo.all.each {|x| amiiboArray << x.amiiboSeries}
-        puts "-------------------------------------------\n\n"
+        puts "--------------------------------------------------------------------------------\n\n"
         puts amiiboArray.uniq
-        puts "-------------------------------------------\n\n"
+        puts "--------------------------------------------------------------------------------\n\n"
     end
 
      #lists all amiibos by their character key with no duplicates
     def list_all_character
         characterArray = []
         Amiiboproject::Amiibo.all.each {|x| characterArray << x.character}
-        puts "-------------------------------------------\n\n"
+        puts "--------------------------------------------------------------------------------\n\n"
         puts characterArray.uniq
-        puts "-------------------------------------------\n\n"
+        puts "--------------------------------------------------------------------------------\n\n"
     end
 
      #selects and lists all amiibos by Character Series inputted
@@ -112,12 +113,12 @@ class Amiiboproject::CLI
         end
         characterArray.each.with_index(1) do |x, i|
             puts "Number #{i}"
-            puts "-------------------------------------------"
+            puts "--------------------------------------------------------------------------------"
             puts "  -   Character Base Name: #{x.name.split.map(&:capitalize).join(' ').colorize(:yellow)}"
             puts "  -   Character Secondary Name: #{x.character.split.map(&:capitalize).join(' ').colorize(:red)}"
             puts "  -   Game Series: #{x.gameSeries.split.map(&:capitalize).join(' ').colorize(:blue)}"  
             puts "  -   Amiibo Series: #{x.amiiboSeries.split.map(&:capitalize).join(' ').colorize(:green)}"
-            puts "-------------------------------------------\n\n"   
+            puts "--------------------------------------------------------------------------------\n\n"
         end
     end
 
@@ -128,14 +129,13 @@ class Amiiboproject::CLI
         end
         gameArray.each.with_index(1) do |x, i|
             puts "Number #{i}"
-            puts "-------------------------------------------"
-            puts "  -   Character Base Name: #{x.name.split.map(&:capitalize).join(' ').colorize(:yellow)}}"
+            puts "--------------------------------------------------------------------------------"
+            puts "  -   Character Base Name: #{x.name.split.map(&:capitalize).join(' ').colorize(:yellow)}"
             puts "  -   Character Secondary Name: #{x.character.split.map(&:capitalize).join(' ').colorize(:red)}"
             puts "  -   Game Series: #{x.gameSeries.split.map(&:capitalize).join(' ').colorize(:blue)}"  
             puts "  -   Amiibo Series: #{x.amiiboSeries.split.map(&:capitalize).join(' ').colorize(:green)}"
-            puts "-------------------------------------------\n\n"   
+            puts "--------------------------------------------------------------------------------\n\n"
         end
-    end
 
     #selects and lists all amiibos by Amiibo Series inputted
     def list_by_amiiboSeries(input)
@@ -144,12 +144,12 @@ class Amiiboproject::CLI
         end
         amiiboArray.each.with_index(1) do |x, i|
             puts "Number #{i}"
-            puts "-------------------------------------------"
+            puts "--------------------------------------------------------------------------------"
             puts "  -   Character Base Name: #{x.name.split.map(&:capitalize).join(' ').colorize(:yellow)}"
             puts "  -   Character Secondary Name: #{x.character.split.map(&:capitalize).join(' ').colorize(:red)}"
             puts "  -   Game Series: #{x.gameSeries.split.map(&:capitalize).join(' ').colorize(:blue)}"  
             puts "  -   Amiibo Series: #{x.amiiboSeries.split.map(&:capitalize).join(' ').colorize(:green)}"
-            puts "-------------------------------------------\n\n"   
+            puts "--------------------------------------------------------------------------------\n\n"   
         end
     end
     
