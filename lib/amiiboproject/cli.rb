@@ -14,7 +14,9 @@ class Amiiboproject::CLI
     #outputs the menu of options for the user
     def menu
         puts "Type in a Nintendo character or Nintendo Series"
-        puts "Type 'all' to see ALL amiibos"
+        puts "- Type '1' for a list of all the Game Series included in the Amiibo collection"
+        puts "- Type '2' for a list of all the Amiibo Series included in the Amiibo collection"
+        puts "- Type '3' for a list of all the Characters included in Amiibo collection"
         puts "Type 'exit' to exit the CLI"
         puts "\n"
         sleep(2)
@@ -39,24 +41,24 @@ class Amiiboproject::CLI
                     list_all_gameseries
                     second_instructions
                 elsif input == "2"
-                    list_all_character
+                    list_all_amiiboseries
                     second_instructions
                 elsif input == "3"
                     list_all_character
                     second_instructions
                 elsif input == "4"
                     menu 
+                elsif input == "exit"
+                    exit
                 elsif character_valid?(input)
                     list_by_character(input)
                     second_instructions
                 elsif amiiboSeries_valid?(input)
                     list_by_amiiboSeries(input)
                     second_instructions
-                elsif gameSeries_valid?(input)
-                    list_by_amiiboSeries(input)
-                    second_instructions
-                elsif input == "exit"
-                    exit
+                # elsif gameSeries_valid?(input)
+                #     list_by_amiiboSeries(input)
+                #     second_instructions
                 else
                     puts "Please enter a valid character."
                     browse_amiibos
@@ -64,16 +66,8 @@ class Amiiboproject::CLI
             end
         end 
     end
-
-     #lists all amiibos by their amiiboSeries key
-     def list_all_character
-        array = []
-        as = Amiiboproject::Amiibo.all.each {|x| array << x.character}
-        puts array.uniq
-    end
-
-     #lists all amiibos by their gameSeries key
-     def list_all_gameseries
+    #lists all amiibos by their gameSeries key
+    def list_all_gameseries
         array = []
         as = Amiiboproject::Amiibo.all.each {|x| array << x.gameSeries}
         puts array.uniq
@@ -86,16 +80,26 @@ class Amiiboproject::CLI
         puts array.uniq
     end
 
+     #lists all amiibos by their character key
+    def list_all_character
+        array = []
+        as = Amiiboproject::Amiibo.all.each {|x| array << x.character}
+        puts array.uniq
+    end
+
      #selects and lists all amiibos by Character Series inputted
      def list_by_character(input)
         as = Amiiboproject::Amiibo.all.select do |x| 
             x.name.downcase == input
         end
         as.each.with_index(1) do |x, i|
-            puts "#{i}. Name: #{x.name.split.map(&:capitalize).join(' ')}"
-            puts "  -   " + "Character Series: #{x.character.split.map(&:capitalize).join(' ')}\n\n"
-            puts "  -   " + "Game Series: #{x.gameSeries.split.map(&:capitalize).join(' ')}\n\n"  
-            puts "  -   " + "Amiibo Series: #{x.amiiboSeries.split.map(&:capitalize).join(' ')}\n\n"  
+            puts "Number #{i}"
+            puts "-------------------------------------------"
+            puts "  -   Character Base Name: #{x.name.split.map(&:capitalize).join(' ')}"
+            puts "  -   Character Secondary Name: #{x.character.split.map(&:capitalize).join(' ')}"
+            puts "  -   Game Series: #{x.gameSeries.split.map(&:capitalize).join(' ')}"  
+            puts "  -   Amiibo Series: #{x.amiiboSeries.split.map(&:capitalize).join(' ')}"
+            puts "-------------------------------------------\n\n"   
         end
     end
 
@@ -105,10 +109,13 @@ class Amiiboproject::CLI
             x.gameSeries.downcase == input
         end
         as.each.with_index(1) do |x, i|
-            puts "#{i}. Name: #{x.name.split.map(&:capitalize).join(' ')}"
-            puts "  -   " + "Character Series: #{x.character.split.map(&:capitalize).join(' ')}\n\n"
-            puts "  -   " + "Game Series: #{x.gameSeries.split.map(&:capitalize).join(' ')}\n\n"  
-            puts "  -   " + "Amiibo Series: #{x.amiiboSeries.split.map(&:capitalize).join(' ')}\n\n"  
+            puts "Number #{i}"
+            puts "-------------------------------------------"
+            puts "  -   Character Base Name: #{x.name.split.map(&:capitalize).join(' ')}"
+            puts "  -   Character Secondary Name: #{x.character.split.map(&:capitalize).join(' ')}"
+            puts "  -   Game Series: #{x.gameSeries.split.map(&:capitalize).join(' ')}"  
+            puts "  -   Amiibo Series: #{x.amiiboSeries.split.map(&:capitalize).join(' ')}"
+            puts "-------------------------------------------\n\n"   
         end
     end
 
@@ -118,23 +125,13 @@ class Amiiboproject::CLI
             x.amiiboSeries.downcase == input
         end
         as.each.with_index(1) do |x, i|
-            puts "#{i}. Name: #{x.name.split.map(&:capitalize).join(' ')}"
-            puts "  -   " + "Character Series: #{x.character.split.map(&:capitalize).join(' ')}\n\n"
-            puts "  -   " + "Game Series: #{x.gameSeries.split.map(&:capitalize).join(' ')}\n\n"  
-            puts "  -   " + "Amiibo Series: #{x.amiiboSeries.split.map(&:capitalize).join(' ')}\n\n"  
-        end
-    end
-
-    #selects and lists all amiibos by Game Series inputted
-    def list_by_amiiboSeries(input)
-        as = Amiiboproject::Amiibo.all.select do |x| 
-            x.gameSeries.downcase == input
-        end
-        as.each.with_index(1) do |x, i|
-            puts "#{i}. Name: #{x.name.split.map(&:capitalize).join(' ')}"
-            puts "  -   " + "Character Series: #{x.character.split.map(&:capitalize).join(' ')}\n\n"
-            puts "  -   " + "Game Series: #{x.gameSeries.split.map(&:capitalize).join(' ')}\n\n"  
-            puts "  -   " + "Amiibo Series: #{x.amiiboSeries.split.map(&:capitalize).join(' ')}\n\n"  
+            puts "Number #{i}"
+            puts "-------------------------------------------"
+            puts "  -   Character Base Name: #{x.name.split.map(&:capitalize).join(' ')}"
+            puts "  -   Character Secondary Name: #{x.character.split.map(&:capitalize).join(' ')}"
+            puts "  -   Game Series: #{x.gameSeries.split.map(&:capitalize).join(' ')}"  
+            puts "  -   Amiibo Series: #{x.amiiboSeries.split.map(&:capitalize).join(' ')}"
+            puts "-------------------------------------------\n\n"   
         end
     end
     
@@ -155,8 +152,8 @@ class Amiiboproject::CLI
 
     #outputs secondary menu after the selection has run
     def second_instructions
-        puts "\n\nEnter another character"
-        puts "Enter 'menu' to repeat the menu"
-        puts "Enter an amiibo series you would like to see"
-        puts "Enter 'exit' to exit the app \n\n"
+        puts "  -   Enter another character"
+        puts "  -   Enter 'menu' to repeat the menu"
+        puts "  -   Enter an amiibo series you would like to see"
+        puts "  -   Enter 'exit' to exit the app \n\n"
     end
