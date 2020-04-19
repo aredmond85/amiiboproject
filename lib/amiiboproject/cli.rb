@@ -12,6 +12,7 @@ class Amiiboproject::CLI
     def intro
         puts "\n\n#{"Welcome to the Amiibo Selection!".colorize(:cyan)}\n\n"
         puts "Gathering all Amiibo Results...one moment..."
+        puts "How do you pronouce Amiibo? Hyphenate: A-me-bo\n\n"
         puts "--------------------------------------------------------------------------------\n\n"
         sleep(1)
     end
@@ -23,7 +24,6 @@ class Amiiboproject::CLI
 
     #outputs the menu of options for the user
     def menu
-        puts "How do you pronouce Amiibo? Hyphenate: A-me-bo\n\n"
         puts "- Type in a #{"Nintendo Character".colorize(:red)} | #{"Game Series".colorize(:blue)} | #{"Amiibo Series".colorize(:green)}\n\n"
         puts "- Type #{'1'.colorize(:yellow)} for a list of all the Game Series included in the Amiibo collection"
         puts "- Type #{'2'.colorize(:yellow)} for a list of all the Amiibo Series included in the Amiibo collection"
@@ -61,7 +61,7 @@ class Amiiboproject::CLI
     end
 
      #selects and lists all amiibos by Character Series inputted
-     def list_by_character(input)
+    def list_by_character(input)
         characterArray = Amiiboproject::Amiibo.all.select do |x| 
             x.name.downcase == input
         end
@@ -90,6 +90,7 @@ class Amiiboproject::CLI
             puts "  -   Amiibo Series: #{x.amiiboSeries.split.map(&:capitalize).join(' ').colorize(:green)}"
             puts "--------------------------------------------------------------------------------\n\n"
         end
+    end
 
     #selects and lists all amiibos by Amiibo Series inputted
     def list_by_amiiboSeries(input)
@@ -140,36 +141,35 @@ class Amiiboproject::CLI
         input = nil
         while input != "exit" 
             input = gets.strip.downcase
-                if input == "1"
-                    list_all_gameseries
-                    #continue(input)
-                    menu
-                elsif input == "2"
-                    list_all_amiiboseries
-                    #continue(input)
-                    menu
-                elsif input == "3"
-                    list_all_character
-                    #continue(input)
-                    menu
-                elsif input == "exit"
-                    exit
-                elsif character_valid?(input)
-                    list_by_character(input)
-                    #continue(input)
-                    menu
-                elsif amiiboSeries_valid?(input)
-                    list_by_amiiboSeries(input)
-                    #continue(input)
-                    menu
-                elsif gameSeries_valid?(input)
-                    list_by_gameSeries(input)
-                    #continue(input)
-                    menu
-                else
-                    puts "\n\nThat selection does not exist. Please enter in another selection.\n\n"
-                    browse_amiibos
-                end
+            if input == "1"
+                list_all_gameseries
+                continue(input)
+                #menu
+            elsif input == "2"
+                list_all_amiiboseries
+                continue(input)
+                #menu
+            elsif input == "3"
+                list_all_character
+                continue(input)
+                #menu
+            elsif input == "exit"
+                exit
+            elsif character_valid?(input)
+                list_by_character(input)
+                continue(input)
+                #menu
+            elsif amiiboSeries_valid?(input)
+                list_by_amiiboSeries(input)
+                continue(input)
+                #menu
+            elsif gameSeries_valid?(input)
+                list_by_gameSeries(input)
+                continue(input)
+                #menu
+            else
+                puts "\n\nThat selection does not exist. Please enter in another selection.\n\n"
+                browse_amiibos
             end
         end
     end
