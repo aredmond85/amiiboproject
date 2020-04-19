@@ -16,7 +16,7 @@ class Amiiboproject::CLI
         sleep(1)
     end
 
-    #creates amiibo objects, then runs browse_amiibos loop
+     #creates amiibo objects, then runs browse_amiibos loop
     def gather_amiibos
         Amiiboproject::Amiibo.create(Amiiboproject::APIManager.get_amiibo)
     end
@@ -31,53 +31,7 @@ class Amiiboproject::CLI
         puts "- Type #{'exit'.colorize(:yellow)} to exit the CLI\n\n"
         puts "--------------------------------------------------------------------------------\n\n"
         sleep(2)
-    end
-
-    #adds a menu options to continue and output the menu or exit
-    def continue(input)
-        puts "Would you like to continue?"
-        puts "#{"Yes".colorize(:green)} or #{"No".colorize(:yellow)} or #{"Exit".colorize(:red)}?"
-        input = nil
-        input = gets.strip.downcase
-        if input == "yes"
-            menu
-        elsif input == "no" || "exit"
-            exit
-        end
-    end
-    
-    #instruction loop for everything going on
-    def browse_amiibos
-        input = nil
-        while input != "exit" 
-            input = gets.strip.downcase
-                if input == "1"
-                    list_all_gameseries
-                    continue(input)
-                elsif input == "2"
-                    list_all_amiiboseries3
-                    continue(input)
-                elsif input == "3"
-                    list_all_character
-                    continue(input)
-                elsif input == "exit"
-                    exit
-                elsif character_valid?(input)
-                    list_by_character(input)
-                    continue(input)
-                elsif amiiboSeries_valid?(input)
-                    list_by_amiiboSeries(input)
-                    continue(input)
-                elsif gameSeries_valid?(input)
-                    list_by_gameSeries(input)
-                    continue(input)
-                else
-                    puts "\n\nThat selection does not exist. Please enter in another selection.\n\n"
-                    browse_amiibos
-                end
-            end
-        end 
-    end
+    end    
 
     #lists all amiibos by their gameSeries key with no duplicates
     def list_all_gameseries
@@ -167,6 +121,57 @@ class Amiiboproject::CLI
     def gameSeries_valid?(gameSeries)
         Amiiboproject::Amiibo.all.any? {|amiibo| amiibo.gameSeries.downcase == gameSeries}
     end 
-end
 
+    #adds a menu options to continue and output the menu or exit
+    def continue(input)
+        puts "Would you like to continue?"
+        puts "#{"Yes".colorize(:green)} or #{"No".colorize(:yellow)} or #{"Exit".colorize(:red)}?"
+        input = nil
+        input = gets.strip.downcase
+        if input == "yes"
+            menu
+        elsif input == "no" || "exit"
+            exit
+        end
+    end
+
+    #instruction loop for everything going on
+    def browse_amiibos
+        input = nil
+        while input != "exit" 
+            input = gets.strip.downcase
+                if input == "1"
+                    list_all_gameseries
+                    #continue(input)
+                    menu
+                elsif input == "2"
+                    list_all_amiiboseries
+                    #continue(input)
+                    menu
+                elsif input == "3"
+                    list_all_character
+                    #continue(input)
+                    menu
+                elsif input == "exit"
+                    exit
+                elsif character_valid?(input)
+                    list_by_character(input)
+                    #continue(input)
+                    menu
+                elsif amiiboSeries_valid?(input)
+                    list_by_amiiboSeries(input)
+                    #continue(input)
+                    menu
+                elsif gameSeries_valid?(input)
+                    list_by_gameSeries(input)
+                    #continue(input)
+                    menu
+                else
+                    puts "\n\nThat selection does not exist. Please enter in another selection.\n\n"
+                    browse_amiibos
+                end
+            end
+        end
+    end
+end
 #binding.pry
