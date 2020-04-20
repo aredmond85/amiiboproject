@@ -1,38 +1,20 @@
 # Amiiboproject
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/amiiboproject`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Amiiboproject uses the HTTParty gem to request data from the Amiibo API. The Colorize gem is used for some light coloring throughout the CLI to emphasis highlighing and directions. You will get the Amiibo names, secondary character names (alternate way of identifying them), what game series they came from, what Amiibo series they came from and lastly what type of Amiibo they are (i.e. Figure, Card, etc...). There is several options to search and display Amiibos by certain keys from the Amiibo API.
 
 ## Installation
 
-Add this line to your application's Gemfile:
+1) Install application by cloning this repository to your local machine.
 
-```ruby
-gem 'amiiboproject'
-```
-
-And then execute:
-
-    $ bundle install
-
-Or install it yourself as:
-
-    $ gem install amiiboproject
+2) Then execute: bundle install in your terminal
 
 ## Usage
 
-TODO: Write usage instructions here
-
-## Development
-
-After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+Execute bin/amiiboproject after cloning the repository.
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/<github username>/amiiboproject. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/<github username>/amiiboproject/blob/master/CODE_OF_CONDUCT.md).
+Bug reports and pull requests are welcome on GitHub at https://github.com/aredmond85/amiiboproject. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/aredmond85/amiiboproject/blob/master/CODE_OF_CONDUCT.md).
 
 
 ## License
@@ -41,4 +23,4 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 ## Code of Conduct
 
-Everyone interacting in the Amiiboproject project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/<github username>/amiiboproject/blob/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the Amiiboproject project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/aredmond85/amiiboproject/blob/master/CODE_OF_CONDUCT.md).
