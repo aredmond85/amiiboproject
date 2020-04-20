@@ -27,7 +27,8 @@ class Amiiboproject::CLI
         puts "- Type in a #{"Nintendo Character".colorize(:red)} | #{"Game Series".colorize(:blue)} | #{"Amiibo Series".colorize(:green)}\n\n"
         puts "- Type #{'1'.colorize(:yellow)} for a list of all the Game Series included in the Amiibo collection"
         puts "- Type #{'2'.colorize(:yellow)} for a list of all the Amiibo Series included in the Amiibo collection"
-        puts "- Type #{'3'.colorize(:yellow)} for a list of all the Characters included in Amiibo collection\n\n"
+        puts "- Type #{'3'.colorize(:yellow)} for a list of all the Characters included in Amiibo collection"
+        puts "- Type #{'4'.colorize(:yellow)} for a list of ALL Amiibos collection\n\n"
         puts "- Type #{'exit'.colorize(:yellow)} to exit the CLI\n\n"
         puts "--------------------------------------------------------------------------------\n\n"
         sleep(2)
@@ -72,6 +73,7 @@ class Amiiboproject::CLI
             puts "  -   Character Secondary Name: #{x.character.split.map(&:capitalize).join(' ').colorize(:red)}"
             puts "  -   Game Series: #{x.gameSeries.split.map(&:capitalize).join(' ').colorize(:blue)}"  
             puts "  -   Amiibo Series: #{x.amiiboSeries.split.map(&:capitalize).join(' ').colorize(:green)}"
+            puts "  -   Type of Amiibo: #{x.type.split.map(&:capitalize).join(' ').colorize(:cyan)}"
             puts "--------------------------------------------------------------------------------\n\n"
         end
     end
@@ -88,6 +90,7 @@ class Amiiboproject::CLI
             puts "  -   Character Secondary Name: #{x.character.split.map(&:capitalize).join(' ').colorize(:red)}"
             puts "  -   Game Series: #{x.gameSeries.split.map(&:capitalize).join(' ').colorize(:blue)}"  
             puts "  -   Amiibo Series: #{x.amiiboSeries.split.map(&:capitalize).join(' ').colorize(:green)}"
+            puts "  -   Type of Amiibo: #{x.type.split.map(&:capitalize).join(' ').colorize(:cyan)}"
             puts "--------------------------------------------------------------------------------\n\n"
         end
     end
@@ -104,7 +107,20 @@ class Amiiboproject::CLI
             puts "  -   Character Secondary Name: #{x.character.split.map(&:capitalize).join(' ').colorize(:red)}"
             puts "  -   Game Series: #{x.gameSeries.split.map(&:capitalize).join(' ').colorize(:blue)}"  
             puts "  -   Amiibo Series: #{x.amiiboSeries.split.map(&:capitalize).join(' ').colorize(:green)}"
+            puts "  -   Type of Amiibo: #{x.type.split.map(&:capitalize).join(' ').colorize(:cyan)}"
             puts "--------------------------------------------------------------------------------\n\n"   
+        end
+    end
+
+    def list_all_amiibos
+        Amiiboproject::Amiibo.all.each.with_index do |x, i|
+            puts "--------------------------------------------------------------------------------"
+            puts "#{i}." "  -   Character Base Name: #{x.name.split.map(&:capitalize).join(' ').colorize(:yellow)}"
+            puts "       -   Character Secondary Name: #{x.character.split.map(&:capitalize).join(' ').colorize(:red)}"
+            puts "       -   Game Series: #{x.gameSeries.split.map(&:capitalize).join(' ').colorize(:blue)}"  
+            puts "       -   Amiibo Series: #{x.amiiboSeries.split.map(&:capitalize).join(' ').colorize(:green)}"
+            puts "       -   Type of Amiibo: #{x.type.split.map(&:capitalize).join(' ').colorize(:cyan)}"
+            puts "--------------------------------------------------------------------------------\n\n"  
         end
     end
     
@@ -126,7 +142,7 @@ class Amiiboproject::CLI
     #adds a menu options to continue and output the menu or exit
     def continue(input)
         puts "Would you like to continue?"
-        puts "#{"Yes".colorize(:green)} or #{"No".colorize(:yellow)} or #{"Exit".colorize(:red)}?"
+        puts "#{"Yes".colorize(:green)} or #{"No".colorize(:red)}?"
         input = nil
         input = gets.strip.downcase
         if input == "yes"
@@ -144,29 +160,26 @@ class Amiiboproject::CLI
             if input == "1"
                 list_all_gameseries
                 continue(input)
-                #menu
             elsif input == "2"
                 list_all_amiiboseries
                 continue(input)
-                #menu
             elsif input == "3"
                 list_all_character
                 continue(input)
-                #menu
+            elsif input == "4"
+                list_all_amiibos
+                continue(input)
             elsif input == "exit"
                 exit
             elsif character_valid?(input)
                 list_by_character(input)
                 continue(input)
-                #menu
             elsif amiiboSeries_valid?(input)
                 list_by_amiiboSeries(input)
                 continue(input)
-                #menu
             elsif gameSeries_valid?(input)
                 list_by_gameSeries(input)
                 continue(input)
-                #menu
             else
                 puts "\n\nThat selection does not exist. Please enter in another selection.\n\n"
                 browse_amiibos
