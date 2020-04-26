@@ -55,7 +55,7 @@ class Amiiboproject::CLI
      #lists all amiibos by their character key with no duplicates
     def list_all_character
         characterArray = []
-        Amiiboproject::Amiibo.all.each {|x| characterArray << x.character}
+        Amiiboproject::Amiibo.all.each {|x| characterArray << "#{x.character.split.map(&:capitalize).join(' ')}"}
         puts "--------------------------------------------------------------------------------\n\n"
         puts characterArray.uniq
         puts "--------------------------------------------------------------------------------\n\n"
@@ -144,11 +144,16 @@ class Amiiboproject::CLI
         puts "Would you like to continue?"
         puts "#{"Yes".colorize(:green)} or #{"No".colorize(:red)}?"
         input = nil
-        input = gets.strip.downcase
-        if input == "yes"
-            menu
-        elsif input == "no" || "exit"
-            exit
+        while input != "exit"
+            input = gets.strip.downcase
+            if input == "yes"
+                menu
+            elsif input == "exit"
+                exit
+            else
+                puts "\n\nThat selection does not exist. Please enter in another selection.\n\n"
+                continue(input)
+            end
         end
     end
 
