@@ -55,7 +55,7 @@ class Amiiboproject::CLI
      #lists all amiibos by their character key with no duplicates
     def list_all_character
         characterArray = []
-        Amiiboproject::Amiibo.all.each {|x| characterArray << "#{x.character.split.map(&:capitalize).join(' ')}"}
+        Amiiboproject::Amiibo.all.each {|x| characterArray << x.character}
         puts "--------------------------------------------------------------------------------\n\n"
         puts characterArray.uniq
         puts "--------------------------------------------------------------------------------\n\n"
@@ -142,7 +142,7 @@ class Amiiboproject::CLI
     #adds a menu options to continue and output the menu or exit
     def continue(input)
         puts "Would you like to continue?"
-        puts "#{"Yes".colorize(:green)} or #{"No".colorize(:red)}?"
+        puts "#{"Yes".colorize(:green)} or #{"Exit".colorize(:red)}?"
         input = nil
         while input != "exit"
             input = gets.strip.downcase
