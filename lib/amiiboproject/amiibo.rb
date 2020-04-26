@@ -17,7 +17,7 @@ class Amiiboproject::Amiibo
     end
 
     #instance variables for getters and setters
-    attr_accessor :character, :gameSeries, :name, :amiiboSeries, :type
+    attr_reader :character, :gameSeries, :name, :amiiboSeries, :type
 
     #instantiates an amiibo object
     def initialize(character, gameSeries, name, amiiboSeries, type)
