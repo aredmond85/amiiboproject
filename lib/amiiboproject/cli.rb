@@ -144,16 +144,14 @@ class Amiiboproject::CLI
         puts "Would you like to continue?"
         puts "#{"Yes".colorize(:green)} or #{"Exit".colorize(:red)}?"
         input = nil
-        while input != "exit"
-            input = gets.strip.downcase
-            if input == "yes"
-                menu
-            elsif input == "exit"
-                exit
-            else
-                puts "\n\nThat selection does not exist. Please enter in another selection.\n\n"
-                continue(input)
-            end
+        input = gets.strip.downcase
+        if input == "yes"
+            menu
+        elsif input == "exit"
+            exit
+        else
+            puts "\n\nThat selection does not exist. Please enter in another selection.\n\n"
+            continue(input)
         end
     end
 
