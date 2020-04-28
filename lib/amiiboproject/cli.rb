@@ -19,7 +19,7 @@ class Amiiboproject::CLI
 
      #creates amiibo objects, then runs browse_amiibos loop
     def gather_amiibos
-        Amiiboproject::Amiibo.create(Amiiboproject::APIManager.get_amiibo)
+        Amiiboproject::APIManager.get_amiibo
     end
 
     #outputs the menu of options for the user
@@ -36,28 +36,22 @@ class Amiiboproject::CLI
 
     #lists all amiibos by their gameSeries key with no duplicates
     def list_all_gameseries
-        gameArray = []
-        Amiiboproject::Amiibo.all.each {|x| gameArray << x.gameSeries}
         puts "--------------------------------------------------------------------------------\n\n"
-        puts gameArray.uniq
+        puts Amiiboproject::Amiibo.all.map {|x| x.gameSeries}.uniq
         puts "--------------------------------------------------------------------------------\n\n"
     end
 
     #lists all amiibos by their amiiboSeries key with no duplicates
     def list_all_amiiboseries
-        amiiboArray = []
-        Amiiboproject::Amiibo.all.each {|x| amiiboArray << x.amiiboSeries}
         puts "--------------------------------------------------------------------------------\n\n"
-        puts amiiboArray.uniq
+        puts Amiiboproject::Amiibo.all.map {|x| x.amiiboSeries}.uniq
         puts "--------------------------------------------------------------------------------\n\n"
     end
 
      #lists all amiibos by their character key with no duplicates
     def list_all_character
-        characterArray = []
-        Amiiboproject::Amiibo.all.each {|x| characterArray << x.character}
         puts "--------------------------------------------------------------------------------\n\n"
-        puts characterArray.uniq
+        puts Amiiboproject::Amiibo.all.map {|x| x.character}.uniq
         puts "--------------------------------------------------------------------------------\n\n"
     end
 
@@ -66,16 +60,7 @@ class Amiiboproject::CLI
         characterArray = Amiiboproject::Amiibo.all.select do |x| 
             x.name.downcase == input
         end
-        characterArray.each.with_index(1) do |x, i|
-            puts "Number #{i}"
-            puts "--------------------------------------------------------------------------------"
-            puts "  -   Character Base Name: #{x.name.split.map(&:capitalize).join(' ').colorize(:yellow)}"
-            puts "  -   Character Secondary Name: #{x.character.split.map(&:capitalize).join(' ').colorize(:red)}"
-            puts "  -   Game Series: #{x.gameSeries.split.map(&:capitalize).join(' ').colorize(:blue)}"  
-            puts "  -   Amiibo Series: #{x.amiiboSeries.split.map(&:capitalize).join(' ').colorize(:green)}"
-            puts "  -   Type of Amiibo: #{x.type.split.map(&:capitalize).join(' ').colorize(:cyan)}"
-            puts "--------------------------------------------------------------------------------\n\n"
-        end
+        list_all(characterArray)
     end
 
     #selects and lists all amiibos by Character Series inputted
@@ -83,16 +68,7 @@ class Amiiboproject::CLI
         gameArray = Amiiboproject::Amiibo.all.select do |x| 
             x.gameSeries.downcase == input
         end
-        gameArray.each.with_index(1) do |x, i|
-            puts "Number #{i}"
-            puts "--------------------------------------------------------------------------------"
-            puts "  -   Character Base Name: #{x.name.split.map(&:capitalize).join(' ').colorize(:yellow)}"
-            puts "  -   Character Secondary Name: #{x.character.split.map(&:capitalize).join(' ').colorize(:red)}"
-            puts "  -   Game Series: #{x.gameSeries.split.map(&:capitalize).join(' ').colorize(:blue)}"  
-            puts "  -   Amiibo Series: #{x.amiiboSeries.split.map(&:capitalize).join(' ').colorize(:green)}"
-            puts "  -   Type of Amiibo: #{x.type.split.map(&:capitalize).join(' ').colorize(:cyan)}"
-            puts "--------------------------------------------------------------------------------\n\n"
-        end
+        list_all(gameArray)
     end
 
     #selects and lists all amiibos by Amiibo Series inputted
@@ -100,7 +76,11 @@ class Amiiboproject::CLI
         amiiboArray = Amiiboproject::Amiibo.all.select do |x| 
             x.amiiboSeries.downcase == input
         end
-        amiiboArray.each.with_index(1) do |x, i|
+        list_all(amiiboArray)
+    end
+
+    def list_all(array)
+        array.each.with_index(1) do |x, i|
             puts "Number #{i}"
             puts "--------------------------------------------------------------------------------"
             puts "  -   Character Base Name: #{x.name.split.map(&:capitalize).join(' ').colorize(:yellow)}"
